@@ -3,7 +3,7 @@
         xmlns:vm="using:dither_playground.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="800"
         x:Class="dither_playground.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
@@ -12,9 +12,43 @@
     <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,
              to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-        <vm:MainWindowViewModel/>
+        <vm:MainWindowViewModel />
     </Design.DataContext>
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <Window.Styles>
+        <Style Selector="Window">
+            <Setter Property="Width" Value="450" />
+            <Setter Property="Height" Value="800" />
+            <Setter Property="CanResize" Value="False" />
+        </Style>
+        <Style Selector="Button">
+            <Setter Property="CornerRadius" Value="0" />
+        </Style>
+        <Style Selector="ItemsControl#Algorithms">
+            <Style Selector="^ Button">
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+            </Style>
+        </Style>
+    </Window.Styles>
+
+    <StackPanel>
+        <Panel Background="GreenYellow" HorizontalAlignment="Stretch"
+               Height="{Binding $self.Bounds.Width}">
+            <Image Stretch="UniformToFill" Source="{Binding DitheredBitmap}" />
+        </Panel>
+        <Border Padding="10" HorizontalAlignment="Stretch">
+            <StackPanel>
+                <TextBlock Text="{Binding SelectedAlgorithm, StringFormat=Selected: {0}}" />
+                <ItemsControl Name="Algorithms" ItemsSource="{Binding Algorithms}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="vm:Algorithm">
+                            <Button Content="{Binding DisplayName}" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </Border>
+    </StackPanel>
 
 </Window>
