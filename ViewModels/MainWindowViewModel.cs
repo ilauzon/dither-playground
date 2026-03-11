@@ -101,7 +101,7 @@ public partial class MainWindowViewModel : ViewModelBase
     {
         if (CellColumns <= 1) return;
         CellColumns -= 1;
-        for (var i = CellRows; i > 0; i--) Cells.RemoveAt(CellColumns * i);
+        for (var i = CellRows; i > 0; i--) Cells.RemoveAt((CellColumns + 1) * i - 1);
         ChangeCustomDitherer(GetCustomPattern());
     }
 
