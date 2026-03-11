@@ -75,6 +75,7 @@ public partial class MainWindowViewModel : ViewModelBase
     {
         for (var _ = 0; _ < CellColumns; _++) Cells.Add(new CellViewModel(CustomDithererPatternChanged));
         CellRows += 1;
+        ChangeCustomDitherer(GetCustomPattern());
     }
 
     [RelayCommand]
@@ -83,6 +84,7 @@ public partial class MainWindowViewModel : ViewModelBase
         if (CellRows <= 1) return;
         CellRows -= 1;
         for (var _ = 0; _ < CellColumns; _++) Cells.RemoveAt(Cells.Count - 1);
+        ChangeCustomDitherer(GetCustomPattern());
     }
 
     [RelayCommand]
@@ -91,6 +93,7 @@ public partial class MainWindowViewModel : ViewModelBase
         for (var i = CellRows; i > 0; i--)
             Cells.Insert(CellColumns * i, new CellViewModel(CustomDithererPatternChanged));
         CellColumns += 1;
+        ChangeCustomDitherer(GetCustomPattern());
     }
 
     [RelayCommand]
@@ -99,6 +102,7 @@ public partial class MainWindowViewModel : ViewModelBase
         if (CellColumns <= 1) return;
         CellColumns -= 1;
         for (var i = CellRows; i > 0; i--) Cells.RemoveAt(CellColumns * i);
+        ChangeCustomDitherer(GetCustomPattern());
     }
 
     private void DitherSourceWithSelectedAlgorithm()
