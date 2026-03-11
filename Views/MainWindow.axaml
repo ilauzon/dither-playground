@@ -32,10 +32,11 @@
         </Style>
     </Window.Styles>
 
-    <StackPanel>
-        <Panel Background="GreenYellow" HorizontalAlignment="Stretch"
+    <StackPanel Name="Root">
+        <Panel Background="Purple" HorizontalAlignment="Stretch"
                Height="{Binding $self.Bounds.Width}">
-            <Image Stretch="UniformToFill" Source="{Binding DitheredBitmap}" />
+            <Image Stretch="UniformToFill" Source="{Binding DitheredBitmap}"
+                   RenderOptions.BitmapInterpolationMode="None" />
         </Panel>
         <Border Padding="10" HorizontalAlignment="Stretch">
             <StackPanel>
@@ -43,7 +44,9 @@
                 <ItemsControl Name="Algorithms" ItemsSource="{Binding Algorithms}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate DataType="vm:Algorithm">
-                            <Button Content="{Binding DisplayName}" />
+                            <Button Content="{Binding DisplayName}"
+                                    Command="{Binding $parent[Window].DataContext.ChangeSelectedAlgorithmCommand}"
+                                    CommandParameter="{Binding .}" />
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>

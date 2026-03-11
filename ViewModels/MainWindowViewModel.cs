@@ -17,7 +17,7 @@ public partial class MainWindowViewModel : ViewModelBase
         new("Atkinson", new AtkinsonDitherer())
     ];
 
-    private static readonly Algorithm DefaultAlgorithm = Algorithms[1];
+    private static readonly Algorithm DefaultAlgorithm = Algorithms[0];
 
     private static readonly Bitmap DefaultSourceImage =
         new(AssetLoader.Open(new Uri("avares://dither-playground/Assets/david.png")));
