@@ -35,7 +35,8 @@ public partial class MainWindowViewModel : ViewModelBase
 
     [ObservableProperty] private int _cellRows;
     [ObservableProperty] private int _cellColumns;
-    [ObservableProperty] private (int, int) _anchor;
+    [ObservableProperty] private int _anchorX;
+    [ObservableProperty] private int _anchorY;
 
     public ObservableCollection<CellViewModel> Cells { get; } = [];
 
@@ -54,7 +55,8 @@ public partial class MainWindowViewModel : ViewModelBase
         startingCells.ForEach(Cells.Add);
         CellRows = 2;
         CellColumns = 2;
-        Anchor = (0, 0);
+        AnchorX = 0;
+        AnchorY = 0;
 
         var customDitherPattern = GetCustomPattern();
         CustomDitherer = new CustomErrorDiffusionDitherer(customDitherPattern);
@@ -116,7 +118,7 @@ public partial class MainWindowViewModel : ViewModelBase
         for (var y = 0; y < CellRows; y++)
         for (var x = 0; x < CellColumns; x++)
             matrix[y, x] = Cells[y * CellColumns + x].Value;
-        return new ErrorDiffusionPattern(matrix, Anchor);
+        return new ErrorDiffusionPattern(matrix, (AnchorY, AnchorX));
     }
 
     private void CustomDithererPatternChanged(object? sender, object args)
