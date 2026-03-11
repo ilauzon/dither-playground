@@ -54,17 +54,20 @@
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <UniformGrid
-                                Background="Red"
                                 Rows="{Binding CellRows}"
                                 Columns="{Binding CellColumns}" />
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <TextBox Text="{Binding Value}" Background="Blue" />
+                            <TextBox Text="{Binding Value}" />
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
+                <Button Content="Add Row" Command="{Binding AddRowToCustomMatrixCommand}" />
+                <Button Content="Remove Row" Command="{Binding RemoveRowFromCustomMatrixCommand}" />
+                <Button Content="Add Column" Command="{Binding AddColumnToCustomMatrixCommand}" />
+                <Button Content="Remove Column" Command="{Binding RemoveColumnFromCustomMatrixCommand}" />
             </StackPanel>
         </Border>
     </StackPanel>

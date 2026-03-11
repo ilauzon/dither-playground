@@ -60,7 +60,6 @@ public partial class MainWindowViewModel : ViewModelBase
         CustomDitherer = new CustomErrorDiffusionDitherer(customDitherPattern);
         Algorithms.Add(new Algorithm("Custom", CustomDitherer));
 
-        Cells.CollectionChanged += CustomDithererPatternChanged;
         foreach (var cellViewModel in Cells) cellViewModel.PropertyChanged += CustomDithererPatternChanged;
     }
 
@@ -69,6 +68,37 @@ public partial class MainWindowViewModel : ViewModelBase
     {
         SelectedAlgorithm = algorithm;
         DitherSourceWithSelectedAlgorithm();
+    }
+
+    [RelayCommand]
+    private void AddRowToCustomMatrix()
+    {
+        for (var _ = 0; _ < CellColumns; _++) Cells.Add(new CellViewModel(CustomDithererPatternChanged));
+        CellRows += 1;
+    }
+
+    [RelayCommand]
+    private void RemoveRowFromCustomMatrix()
+    {
+        if (CellRows <= 1) return;
+        CellRows -= 1;
+        for (var _ = 0; _ < CellColumns; _++) Cells.RemoveAt(Cells.Count - 1);
+    }
+
+    [RelayCommand]
+    private void AddColumnToCustomMatrix()
+    {
+        for (var i = CellRows; i > 0; i--)
+            Cells.Insert(CellColumns * i, new CellViewModel(CustomDithererPatternChanged));
+        CellColumns += 1;
+    }
+
+    [RelayCommand]
+    private void RemoveColumnFromCustomMatrix()
+    {
+        if (CellColumns <= 1) return;
+        CellColumns -= 1;
+        for (var i = CellRows; i > 0; i--) Cells.RemoveAt(CellColumns * i);
     }
 
     private void DitherSourceWithSelectedAlgorithm()
