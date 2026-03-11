@@ -9,8 +9,10 @@ using AvaloniaPixelSnoop;
 namespace dither_playground.Models;
 
 public abstract class ErrorDiffusionDitherer(
-    ErrorDiffusionDitherer.ErrorDiffusionPattern pattern) : IDitherer
+    ErrorDiffusionPattern pattern) : IDitherer
 {
+    protected ErrorDiffusionPattern Pattern = pattern;
+
     public Bitmap Dither(Bitmap bitmap)
     {
         var matrix = ReadMatrixFromBitmap(bitmap);
@@ -22,13 +24,13 @@ public abstract class ErrorDiffusionDitherer(
             var quantizationError = oldPixel - newPixel;
             matrix[y, x] = newPixel;
 
-            for (var z = 0; z < pattern.Matrix.GetLength(0); z++)
-            for (var w = 0; w < pattern.Matrix.GetLength(1); w++)
+            for (var z = 0; z < Pattern.Matrix.GetLength(0); z++)
+            for (var w = 0; w < Pattern.Matrix.GetLength(1); w++)
             {
-                var multiplier = pattern.Matrix[z, w];
+                var multiplier = Pattern.Matrix[z, w];
                 try
                 {
-                    matrix[y + z - pattern.AnchorYX.Item1, x + w - pattern.AnchorYX.Item2] +=
+                    matrix[y + z - Pattern.AnchorYX.Item1, x + w - Pattern.AnchorYX.Item2] +=
                         quantizationError * multiplier;
                 }
                 catch (IndexOutOfRangeException)
@@ -78,11 +80,5 @@ public abstract class ErrorDiffusionDitherer(
         }
 
         return bitmap;
-    }
-
-    public class ErrorDiffusionPattern(double[,] matrix, (int, int) anchorYX)
-    {
-        public readonly (int, int) AnchorYX = anchorYX;
-        public readonly double[,] Matrix = matrix;
     }
 }
