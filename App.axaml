@@ -50,19 +50,18 @@
       </Style>
 
       <Style Selector="^:pointerover">
-        <Setter Property="Padding" Value="4" />
         <Style Selector="^ /template/ Border#BorderOuter">
           <Setter Property="BoxShadow" Value="inset 0 0 0 2 #000000" />
           <Setter Property="Background" Value="Transparent" />
         </Style>
         <Style Selector="^ /template/ Border#Border">
-          <Setter Property="Margin" Value="2" />
+          <Setter Property="BoxShadow" Value="inset -4 -4 0 0 #000000, inset 4 4 0 0 #ffffff" />
         </Style>
       </Style>
 
       <Setter Property="Template">
         <ControlTemplate>
-          <Border x:Name="BorderOuter">
+          <Grid>
             <Border x:Name="Border"
                     Background="{TemplateBinding Background}">
               <ContentPresenter x:Name="PART_ContentPresenter"
@@ -73,7 +72,8 @@
                                 HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                                 VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
             </Border>
-          </Border>
+            <Border x:Name="BorderOuter" />
+          </Grid>
         </ControlTemplate>
       </Setter>
     </ControlTheme>

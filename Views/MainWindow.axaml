@@ -27,6 +27,9 @@
         <Setter Property="HorizontalContentAlignment" Value="Center" />
       </Style>
     </Style>
+    <Style Selector="UniformGrid TextBox">
+      <Setter Property="Background" Value="Red" />
+    </Style>
   </Window.Styles>
 
   <DockPanel>
@@ -49,7 +52,6 @@
                 <DataTemplate DataType="vm:Algorithm">
                   <Button
                     Content="{Binding DisplayName}"
-                    Margin="0, 5"
                     Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).ChangeSelectedAlgorithmCommand}"
                     CommandParameter="{Binding .}" />
                 </DataTemplate>
