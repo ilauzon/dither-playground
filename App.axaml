@@ -2,14 +2,88 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="dither_playground.App"
              xmlns:local="using:dither_playground"
-             RequestedThemeVariant="Default">
-             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+             RequestedThemeVariant="Light">
+  <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
-    <Application.DataTemplates>
-        <local:ViewLocator/>
-    </Application.DataTemplates>
-  
-    <Application.Styles>
-        <FluentTheme />
-    </Application.Styles>
+  <Application.DataTemplates>
+    <local:ViewLocator />
+  </Application.DataTemplates>
+
+  <Application.Resources>
+    <!-- Color Palette -->
+    <Color x:Key="DarkRed">#2a0000</Color>
+    <Color x:Key="DarkViolet">#2a0055</Color>
+    <Color x:Key="VividDarkBlue">#2a00aa</Color>
+    <Color x:Key="VividBlue1">#2a00ff</Color>
+    <Color x:Key="DarkGreen">#2a1f00</Color>
+    <Color x:Key="MutedDarkBlue">#2a1f55</Color>
+    <Color x:Key="DarkBlue">#2a1faa</Color>
+    <Color x:Key="Blue">#2a1fff</Color>
+    <Color x:Key="ForestGreen">#2a3f00</Color>
+    <Color x:Key="MutedBlue">#2a3f55</Color>
+    <Color x:Key="LightYellow">#fffbf0</Color>
+    <Color x:Key="LightGray">#c0c0c0</Color>
+    <Color x:Key="Gray">#a0a0a0</Color>
+    <Color x:Key="DarkGray">#808080</Color>
+    <Color x:Key="Red">#ff0000</Color>
+    <Color x:Key="LightGreen">#00ff00</Color>
+    <Color x:Key="Yellow">#ffff00</Color>
+    <Color x:Key="VividBlue">#0000ff</Color>
+    <Color x:Key="Magenta">#ff00ff</Color>
+    <Color x:Key="Cyan">#00ffff</Color>
+    <Color x:Key="White">#ffffff</Color>
+    <Color x:Key="Black">#000000</Color>
+
+    <!-- Control Themes -->
+    <ControlTheme x:Key="InsetBorder" TargetType="Border">
+      <Setter Property="BoxShadow" Value="inset 2 2 0 0 #000000, inset -2 -2 0 0 #ffffff" />
+      <Setter Property="Padding" Value="2" />
+    </ControlTheme>
+
+    <ControlTheme x:Key="{x:Type Button}" TargetType="Button">
+      <Setter Property="CornerRadius" Value="0" />
+      <Setter Property="Padding" Value="6" />
+      <Setter Property="Background" Value="{StaticResource LightGray}" />
+
+      <Style Selector="^ /template/ Border#Border">
+        <Setter Property="BoxShadow" Value="inset -2 -2 0 0 #000000, inset 2 2 0 0 #ffffff" />
+      </Style>
+
+      <Style Selector="^:pointerover">
+        <Setter Property="Padding" Value="4" />
+        <Style Selector="^ /template/ Border#BorderOuter">
+          <Setter Property="BoxShadow" Value="inset 0 0 0 2 #000000" />
+          <Setter Property="Background" Value="Transparent" />
+        </Style>
+        <Style Selector="^ /template/ Border#Border">
+          <Setter Property="Margin" Value="2" />
+        </Style>
+      </Style>
+
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Border x:Name="BorderOuter">
+            <Border x:Name="Border"
+                    Background="{TemplateBinding Background}">
+              <ContentPresenter x:Name="PART_ContentPresenter"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                Content="{TemplateBinding Content}"
+                                Padding="{TemplateBinding Padding}"
+                                HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+            </Border>
+          </Border>
+        </ControlTemplate>
+      </Setter>
+    </ControlTheme>
+
+  </Application.Resources>
+
+  <Application.Styles>
+    <SimpleTheme />
+    <Style Selector="Window">
+      <Setter Property="Background" Value="{StaticResource LightGray}" />
+    </Style>
+  </Application.Styles>
 </Application>

@@ -21,9 +21,6 @@
       <Setter Property="Height" Value="800" />
       <Setter Property="CanResize" Value="False" />
     </Style>
-    <Style Selector="Button">
-      <Setter Property="CornerRadius" Value="0" />
-    </Style>
     <Style Selector="ItemsControl#Algorithms">
       <Style Selector="^ Button">
         <Setter Property="HorizontalAlignment" Value="Stretch" />
@@ -32,44 +29,54 @@
     </Style>
   </Window.Styles>
 
-  <StackPanel>
-    <Panel Background="Purple" HorizontalAlignment="Stretch"
-           Height="{Binding $self.Bounds.Width}">
-      <Image Stretch="UniformToFill" Source="{Binding DitheredBitmap}"
-             RenderOptions.BitmapInterpolationMode="None" />
-    </Panel>
+  <DockPanel>
     <Border Padding="10" HorizontalAlignment="Stretch">
-      <StackPanel>
-        <TextBlock Text="{Binding SelectedAlgorithm.DisplayName, StringFormat=Selected: {0}}" />
-        <ItemsControl Name="Algorithms" ItemsSource="{Binding Algorithms}">
-          <ItemsControl.ItemTemplate>
-            <DataTemplate DataType="vm:Algorithm">
-              <Button Content="{Binding DisplayName}"
-                      Command="{Binding $parent[Window].DataContext.ChangeSelectedAlgorithmCommand}"
-                      CommandParameter="{Binding .}" />
-            </DataTemplate>
-          </ItemsControl.ItemTemplate>
-        </ItemsControl>
-        <ItemsControl ItemsSource="{Binding Cells}">
-          <ItemsControl.ItemsPanel>
-            <ItemsPanelTemplate>
-              <UniformGrid
-                Rows="{Binding CellRows}"
-                Columns="{Binding CellColumns}" />
-            </ItemsPanelTemplate>
-          </ItemsControl.ItemsPanel>
-          <ItemsControl.ItemTemplate>
-            <DataTemplate>
-              <TextBox Text="{Binding Value}" />
-            </DataTemplate>
-          </ItemsControl.ItemTemplate>
-        </ItemsControl>
-        <Button Content="Add Row" Command="{Binding AddRowToCustomMatrixCommand}" />
-        <Button Content="Remove Row" Command="{Binding RemoveRowFromCustomMatrixCommand}" />
-        <Button Content="Add Column" Command="{Binding AddColumnToCustomMatrixCommand}" />
-        <Button Content="Remove Column" Command="{Binding RemoveColumnFromCustomMatrixCommand}" />
-      </StackPanel>
+      <DockPanel>
+        <Border DockPanel.Dock="Top" Theme="{StaticResource InsetBorder}">
+          <Panel HorizontalAlignment="Stretch"
+                 Height="{Binding $self.Bounds.Width}">
+            <Image Stretch="UniformToFill" Source="{Binding DitheredBitmap}"
+                   RenderOptions.BitmapInterpolationMode="None" />
+          </Panel>
+        </Border>
+        <TextBlock
+          DockPanel.Dock="Top"
+          Text="{Binding SelectedAlgorithm.DisplayName, StringFormat=Selected: {0}}" />
+        <ScrollViewer>
+          <StackPanel>
+            <ItemsControl Name="Algorithms" ItemsSource="{Binding Algorithms}">
+              <ItemsControl.ItemTemplate>
+                <DataTemplate DataType="vm:Algorithm">
+                  <Button
+                    Content="{Binding DisplayName}"
+                    Margin="0, 5"
+                    Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).ChangeSelectedAlgorithmCommand}"
+                    CommandParameter="{Binding .}" />
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <ItemsControl ItemsSource="{Binding Cells}">
+              <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                  <UniformGrid
+                    Rows="{Binding CellRows}"
+                    Columns="{Binding CellColumns}" />
+                </ItemsPanelTemplate>
+              </ItemsControl.ItemsPanel>
+              <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                  <TextBox Text="{Binding Value}" />
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <Button Content="Add Row" Command="{Binding AddRowToCustomMatrixCommand}" />
+            <Button Content="Remove Row" Command="{Binding RemoveRowFromCustomMatrixCommand}" />
+            <Button Content="Add Column" Command="{Binding AddColumnToCustomMatrixCommand}" />
+            <Button Content="Remove Column" Command="{Binding RemoveColumnFromCustomMatrixCommand}" />
+          </StackPanel>
+        </ScrollViewer>
+      </DockPanel>
     </Border>
-  </StackPanel>
+  </DockPanel>
 
 </Window>

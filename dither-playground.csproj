@@ -23,5 +23,6 @@
         </PackageReference>
         <PackageReference Include="AvaloniaPixelSnoop" Version="1.0.0"/>
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1"/>
+        <PackageReference Include="HotAvalonia" Version="3.*" PrivateAssets="All" Publish="True"/>
     </ItemGroup>
 </Project>

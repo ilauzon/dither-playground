@@ -26,13 +26,9 @@ public partial class MainWindowViewModel : ViewModelBase
     ];
 
     [ObservableProperty] private CustomErrorDiffusionDitherer _customDitherer;
-
     [ObservableProperty] private Bitmap _ditheredBitmap;
-
     [ObservableProperty] private Algorithm _selectedAlgorithm;
-
     [ObservableProperty] private Bitmap _sourceBitmap;
-
     [ObservableProperty] private int _cellRows;
     [ObservableProperty] private int _cellColumns;
     [ObservableProperty] private int _anchorX;
