@@ -137,6 +137,12 @@ public partial class MainWindowViewModel : ViewModelBase, IDialogParticipant
         DitherSourceWithSelectedAlgorithm();
     }
 
+    [RelayCommand]
+    private async Task SaveImage()
+    {
+        await this.SaveFileDialogAsync(DitheredBitmap);
+    }
+
     private void DitherSourceWithSelectedAlgorithm()
     {
         DitheredBitmap = SelectedAlgorithm.Ditherer.Dither(SourceBitmap);

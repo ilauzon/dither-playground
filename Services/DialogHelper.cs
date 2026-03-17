@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Avalonia.Media.Imaging;
 using Avalonia.Platform.Storage;
 
 namespace dither_playground.Services;
@@ -40,5 +41,40 @@ public static class DialogHelper
 
         // return the result
         return storageFiles.ToList();
+    }
+
+    /// <summary>
+    /// Shows a save file dialog for a registered context, most likely a ViewModel
+    /// </summary>
+    /// <param name="context">The context</param>
+    /// <param name="image">The image to be saved</param>
+    /// <param name="filename">The suggested name of the file to be saved</param>
+    /// <exception cref="ArgumentNullException">if context was null</exception>
+    public static async Task SaveFileDialogAsync(this IDialogParticipant? context, Bitmap image,
+        string? filename = null)
+    {
+        ArgumentNullException.ThrowIfNull(context);
+
+        // lookup the TopLevel for the context. If no TopLevel was found, we throw an exception
+        var topLevel = DialogManager.GetTopLevelForContext(context)
+                       ?? throw new InvalidOperationException("No TopLevel was resolved for the given context.");
+
+        // get current date for use in filename
+        var dateTime = DateTime.Now.ToString("/H/mm/ss/dd/MM/yyyy");
+
+        // Open the file dialog
+        var file = await topLevel.StorageProvider.SaveFilePickerAsync(
+            new FilePickerSaveOptions
+            {
+                Title = "Save creation",
+                FileTypeChoices = [FilePickerFileTypes.ImagePng],
+                SuggestedFileName = filename ?? $"dithered{dateTime}.png"
+            });
+
+        if (file is not null)
+        {
+            await using var stream = await file.OpenWriteAsync();
+            image.Save(stream);
+        }
     }
 }
