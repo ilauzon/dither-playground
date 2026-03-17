@@ -33,6 +33,7 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty] private int _cellColumns;
     [ObservableProperty] private int _anchorX;
     [ObservableProperty] private int _anchorY;
+    [ObservableProperty] private bool _customDithererSelected;
 
 
     public ObservableCollection<CellViewModel> Cells { get; } = [];
@@ -67,6 +68,7 @@ public partial class MainWindowViewModel : ViewModelBase
     {
         SelectedAlgorithm = algorithm;
         DitherSourceWithSelectedAlgorithm();
+        CustomDithererSelected = SelectedAlgorithm.Ditherer == CustomDitherer;
     }
 
     [RelayCommand]

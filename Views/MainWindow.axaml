@@ -79,7 +79,7 @@
                 </DataTemplate>
               </ItemsControl.ItemTemplate>
             </ItemsControl>
-            <Grid x:Name="CustomControlGrid">
+            <Grid x:Name="CustomControlGrid" IsVisible="{Binding CustomDithererSelected}">
               <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150" />
                 <ColumnDefinition Width="*" />
@@ -104,16 +104,26 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                   <DataTemplate>
-                    <TextBox Text="{Binding Value}">
-                      <TextBox.ContextMenu>
+                    <Grid>
+                      <Grid.ContextMenu>
                         <ContextMenu>
                           <MenuItem Header="Make Anchor"
                                     IsEnabled="{Binding !IsAnchor}"
                                     Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).ChangeAnchorCommand}"
-                                    CommandParameter="{Binding .}" />
+                                    CommandParameter="{Binding .}">
+                            <MenuItem.Icon>
+                              <Svg Path="/Assets/anchor.svg" />
+                            </MenuItem.Icon>
+                          </MenuItem>
                         </ContextMenu>
-                      </TextBox.ContextMenu>
-                    </TextBox>
+                      </Grid.ContextMenu>
+                      <TextBox Text="{Binding Value}" ContextFlyout="{x:Null}" />
+                      <Border Padding="3">
+                        <Svg Height="15" IsVisible="{Binding IsAnchor}" HorizontalAlignment="Right"
+                             VerticalAlignment="Bottom"
+                             Path="/Assets/anchor.svg" />
+                      </Border>
+                    </Grid>
                   </DataTemplate>
                 </ItemsControl.ItemTemplate>
               </ItemsControl>
