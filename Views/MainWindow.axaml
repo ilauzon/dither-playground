@@ -65,12 +65,12 @@
                    RenderOptions.BitmapInterpolationMode="None" />
           </Panel>
         </Border>
+        <UniformGrid Columns="2" DockPanel.Dock="Top">
+          <Button Command="{Binding UploadImageCommand}">Upload Source</Button>
+          <Button Command="{Binding SaveImageCommand}">Download Result</Button>
+        </UniformGrid>
         <ScrollViewer>
           <StackPanel>
-            <UniformGrid Columns="2">
-              <Button Command="{Binding UploadImageCommand}">Upload Source</Button>
-              <Button Command="{Binding SaveImageCommand}">Download Result</Button>
-            </UniformGrid>
             <ItemsControl Name="Algorithms" ItemsSource="{Binding Algorithms}">
               <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="vm:Algorithm">
