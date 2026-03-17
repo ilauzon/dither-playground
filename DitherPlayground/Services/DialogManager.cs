@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Avalonia;
 using Avalonia.Controls;
 
-namespace dither_playground.Services;
+namespace DitherPlayground.Services;
 
 public class DialogManager
 {

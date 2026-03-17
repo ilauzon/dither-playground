@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform.Storage;
 
-namespace dither_playground.Services;
+namespace DitherPlayground.Services;
 
 /// <summary>
 /// A helper class to manage dialogs via extension methods. Add more on your own

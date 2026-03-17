@@ -1,6 +1,6 @@
 using Avalonia.Media.Imaging;
 
-namespace dither_playground.Models;
+namespace DitherPlayground.Models;
 
 public interface IDitherer
 {

@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 
-namespace dither_playground.Views;
+namespace DitherPlayground.Views;
 
 public partial class MainWindow : Window
 {

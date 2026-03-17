@@ -12,16 +12,16 @@ using Avalonia.Platform;
 using Avalonia.Platform.Storage;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using dither_playground.Models;
-using dither_playground.Services;
-using dither_playground.Views;
+using DitherPlayground.Views;
+using DitherPlayground.Models;
+using DitherPlayground.Services;
 
-namespace dither_playground.ViewModels;
+namespace DitherPlayground.ViewModels;
 
 public partial class MainWindowViewModel : ViewModelBase, IDialogParticipant
 {
     private static readonly Bitmap DefaultSourceImage =
-        new(AssetLoader.Open(new Uri("avares://dither-playground/Assets/david.png")));
+        new(AssetLoader.Open(new Uri("avares://DitherPlayground/Assets/david.png")));
 
     public ObservableCollection<Algorithm> Algorithms { get; } =
     [

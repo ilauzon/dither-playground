@@ -1,7 +1,7 @@
 ﻿using Avalonia;
 using System;
 
-namespace dither_playground;
+namespace DitherPlayground;
 
 sealed class Program
 {

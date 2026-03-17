@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace dither_playground.ViewModels;
+namespace DitherPlayground.ViewModels;
 
 public partial class CellViewModel() : ViewModelBase
 {

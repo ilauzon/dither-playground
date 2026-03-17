@@ -1,4 +1,4 @@
-namespace dither_playground.Services;
+namespace DitherPlayground.Services;
 
 /// <summary>
 /// This interface is needed to use the <see cref="DialogHelper"/>-extension methods

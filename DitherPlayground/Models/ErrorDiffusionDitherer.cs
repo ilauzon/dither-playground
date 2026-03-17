@@ -6,7 +6,7 @@ using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using AvaloniaPixelSnoop;
 
-namespace dither_playground.Models;
+namespace DitherPlayground.Models;
 
 public abstract class ErrorDiffusionDitherer(
     ErrorDiffusionPattern pattern) : IDitherer

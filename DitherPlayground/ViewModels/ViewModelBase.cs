@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace dither_playground.ViewModels;
+namespace DitherPlayground.ViewModels;
 
 public abstract class ViewModelBase : ObservableObject
 {

@@ -1,14 +1,14 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:dither_playground.ViewModels"
+        xmlns:vm="using:DitherPlayground.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="800"
-        x:Class="dither_playground.Views.MainWindow"
+        x:Class="DitherPlayground.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
-        Title="dither_playground"
-        xmlns:services="using:dither_playground.Services"
+        Title="Dither Playground"
+        xmlns:services="using:DitherPlayground.Services"
         services:DialogManager.Register="{Binding}">
 
   <Design.DataContext>

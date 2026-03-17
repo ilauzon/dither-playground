@@ -1,4 +1,4 @@
-namespace dither_playground.Models;
+namespace DitherPlayground.Models;
 
 public class AtkinsonDitherer() : ErrorDiffusionDitherer(AtkinsonPattern)
 {

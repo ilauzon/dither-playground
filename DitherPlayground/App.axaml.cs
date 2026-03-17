@@ -5,10 +5,10 @@ using Avalonia.Data.Core.Plugins;
 using System.Linq;
 using Avalonia.Markup.Xaml;
 using Avalonia.Styling;
-using dither_playground.ViewModels;
-using dither_playground.Views;
+using DitherPlayground.ViewModels;
+using DitherPlayground.Views;
 
-namespace dither_playground;
+namespace DitherPlayground;
 
 public partial class App : Application
 {
