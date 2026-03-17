@@ -108,6 +108,7 @@
                       <TextBox.ContextMenu>
                         <ContextMenu>
                           <MenuItem Header="Make Anchor"
+                                    IsEnabled="{Binding !IsAnchor}"
                                     Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).ChangeAnchorCommand}"
                                     CommandParameter="{Binding .}" />
                         </ContextMenu>

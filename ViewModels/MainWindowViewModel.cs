@@ -46,7 +46,7 @@ public partial class MainWindowViewModel : ViewModelBase
 
         List<CellViewModel> startingCells =
         [
-            new() { Value = 0 }, new() { Value = 0.25 },
+            new() { Value = 0, IsAnchor = true }, new() { Value = 0.25 },
             new() { Value = 0.25 }, new() { Value = 0.25 }
         ];
         startingCells.ForEach(Cells.Add);
@@ -109,8 +109,12 @@ public partial class MainWindowViewModel : ViewModelBase
     {
         var cellIndex = Cells.IndexOf(newAnchor);
         if (cellIndex == -1) return;
+
+        var oldAnchor = Cells[AnchorY * CellColumns + AnchorX];
+        oldAnchor.IsAnchor = false;
         AnchorY = cellIndex / CellColumns;
         AnchorX = cellIndex % CellColumns;
+        newAnchor.IsAnchor = true;
         ChangeCustomDitherer(GetCustomPattern());
     }
 
