@@ -3,17 +3,22 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
+using Avalonia.Platform.Storage;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using dither_playground.Models;
+using dither_playground.Services;
+using dither_playground.Views;
 
 namespace dither_playground.ViewModels;
 
-public partial class MainWindowViewModel : ViewModelBase
+public partial class MainWindowViewModel : ViewModelBase, IDialogParticipant
 {
     private static readonly Bitmap DefaultSourceImage =
         new(AssetLoader.Open(new Uri("avares://dither-playground/Assets/david.png")));
@@ -34,7 +39,6 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty] private int _anchorX;
     [ObservableProperty] private int _anchorY;
     [ObservableProperty] private bool _customDithererSelected;
-
 
     public ObservableCollection<CellViewModel> Cells { get; } = [];
 
@@ -118,6 +122,19 @@ public partial class MainWindowViewModel : ViewModelBase
         AnchorX = cellIndex % CellColumns;
         newAnchor.IsAnchor = true;
         ChangeCustomDitherer(GetCustomPattern());
+    }
+
+    [RelayCommand]
+    private async Task UploadImage()
+    {
+        var selectedFiles = await this.OpenFileDialogAsync("Choose Image", false);
+
+        if (selectedFiles == null || selectedFiles.Count == 0) return;
+
+        var selectedFile = selectedFiles[0];
+        await using var stream = await selectedFile.OpenReadAsync();
+        SourceBitmap = new Bitmap(stream);
+        DitherSourceWithSelectedAlgorithm();
     }
 
     private void DitherSourceWithSelectedAlgorithm()

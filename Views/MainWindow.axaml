@@ -7,7 +7,9 @@
         x:Class="dither_playground.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
-        Title="dither_playground">
+        Title="dither_playground"
+        xmlns:services="using:dither_playground.Services"
+        services:DialogManager.Register="{Binding}">
 
   <Design.DataContext>
     <!-- This only sets the DataContext for the previewer in an IDE,
@@ -65,6 +67,10 @@
         </Border>
         <ScrollViewer>
           <StackPanel>
+            <UniformGrid Columns="2">
+              <Button Command="{Binding UploadImageCommand}">Upload Source</Button>
+              <Button>Download Result</Button>
+            </UniformGrid>
             <ItemsControl Name="Algorithms" ItemsSource="{Binding Algorithms}">
               <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="vm:Algorithm">
