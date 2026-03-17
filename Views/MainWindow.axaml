@@ -81,12 +81,12 @@
             </ItemsControl>
             <Grid x:Name="CustomControlGrid" IsVisible="{Binding CustomDithererSelected}">
               <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="250" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
               </Grid.ColumnDefinitions>
               <Grid.RowDefinitions>
-                <RowDefinition Height="150" />
+                <RowDefinition Height="250" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
               </Grid.RowDefinitions>

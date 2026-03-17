@@ -47,13 +47,13 @@ public partial class MainWindowViewModel : ViewModelBase
 
         List<CellViewModel> startingCells =
         [
-            new() { Value = 0, IsAnchor = true }, new() { Value = 0.25 },
-            new() { Value = 0.25 }, new() { Value = 0.25 }
+            new() { Value = 0 }, new() { Value = 0, IsAnchor = true }, new() { Value = 0.1 },
+            new() { Value = 0.1 }, new() { Value = 0.1 }, new() { Value = 0.1 }
         ];
         startingCells.ForEach(Cells.Add);
         CellRows = 2;
-        CellColumns = 2;
-        AnchorX = 0;
+        CellColumns = 3;
+        AnchorX = 1;
         AnchorY = 0;
 
         var customDitherPattern = GetCustomPattern();
