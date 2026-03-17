@@ -34,6 +34,7 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty] private int _anchorX;
     [ObservableProperty] private int _anchorY;
 
+
     public ObservableCollection<CellViewModel> Cells { get; } = [];
 
     public MainWindowViewModel()
@@ -100,6 +101,16 @@ public partial class MainWindowViewModel : ViewModelBase
         if (CellColumns <= 1) return;
         CellColumns -= 1;
         for (var i = CellRows; i > 0; i--) Cells.RemoveAt((CellColumns + 1) * i - 1);
+        ChangeCustomDitherer(GetCustomPattern());
+    }
+
+    [RelayCommand]
+    private void ChangeAnchor(CellViewModel newAnchor)
+    {
+        var cellIndex = Cells.IndexOf(newAnchor);
+        if (cellIndex == -1) return;
+        AnchorY = cellIndex / CellColumns;
+        AnchorX = cellIndex % CellColumns;
         ChangeCustomDitherer(GetCustomPattern());
     }
 
