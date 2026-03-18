@@ -1,167 +1,23 @@
 <Window xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:DitherPlayground.ViewModels"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="800"
-        x:Class="DitherPlayground.Views.MainWindow"
-        x:DataType="vm:MainWindowViewModel"
-        Icon="/Assets/avalonia-logo.ico"
-        Title="Dither Playground"
-        xmlns:services="using:DitherPlayground.Services"
-        services:DialogManager.Register="{Binding}">
-
-  <Design.DataContext>
-    <!-- This only sets the DataContext for the previewer in an IDE,
-         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-    <vm:MainWindowViewModel />
-  </Design.DataContext>
-  <Window.Resources>
-    <x:Double x:Key="CustomCellSmallLength">25</x:Double>
-  </Window.Resources>
-
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:vm="using:DitherPlayground.ViewModels"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:views="using:DitherPlayground.Views"
+  mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="800"
+  x:Class="DitherPlayground.Views.MainWindow"
+  x:DataType="vm:MainWindowViewModel"
+  Icon="/Assets/avalonia-logo.ico"
+  Title="Dither Playground">
+  
   <Window.Styles>
     <Style Selector="Window">
       <Setter Property="Width" Value="450" />
       <Setter Property="Height" Value="800" />
       <Setter Property="CanResize" Value="False" />
     </Style>
-    <Style Selector="ItemsControl#Algorithms">
-      <Style Selector="^ ToggleButton">
-        <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <Setter Property="HorizontalContentAlignment" Value="Center" />
-      </Style>
-    </Style>
-    <Style Selector="#CustomCellGrid">
-      <Style Selector="^ TextBox">
-        <Setter Property="VerticalAlignment" Value="Stretch" />
-        <Setter Property="HorizontalAlignment" Value="Stretch" />
-      </Style>
-    </Style>
-    <Style Selector="Grid#CustomControlGrid">
-      <Setter Property="VerticalAlignment" Value="Center" />
-      <Setter Property="HorizontalAlignment" Value="Center" />
-      <Setter Property="Margin" Value="10" />
-    </Style>
-    <Style Selector="Button.GridSizingButton">
-      <Setter Property="HorizontalContentAlignment" Value="Center" />
-      <Setter Property="VerticalContentAlignment" Value="Center" />
-    </Style>
-    <Style Selector="Button.GridSizingButton.Vertical">
-      <Setter Property="Width" Value="{StaticResource CustomCellSmallLength}" />
-    </Style>
-    <Style Selector="Button.GridSizingButton.Horizontal">
-      <Setter Property="Height" Value="{StaticResource CustomCellSmallLength}" />
-    </Style>
   </Window.Styles>
-
-  <DockPanel>
-    <Border Padding="10" HorizontalAlignment="Stretch">
-      <DockPanel>
-        <Border DockPanel.Dock="Top" Theme="{StaticResource InsetBorder}">
-          <Panel HorizontalAlignment="Stretch"
-                 Height="{Binding $self.Bounds.Width}">
-            <Image Stretch="UniformToFill" Source="{Binding DitheredBitmap}"
-                   RenderOptions.BitmapInterpolationMode="None" />
-          </Panel>
-        </Border>
-        <UniformGrid Columns="2" DockPanel.Dock="Top">
-          <Button Command="{Binding UploadImageCommand}">Upload Source</Button>
-          <Button Command="{Binding SaveImageCommand}">Download Result</Button>
-        </UniformGrid>
-        <ScrollViewer>
-          <StackPanel>
-            <ItemsControl Name="Algorithms" ItemsSource="{Binding Algorithms}">
-              <ItemsControl.ItemTemplate>
-                <DataTemplate DataType="vm:Algorithm">
-                  <RadioButton
-                    GroupName="Algorithms"
-                    IsChecked="{Binding DisplayName}"
-                    Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).ChangeSelectedAlgorithmCommand}"
-                    CommandParameter="{Binding .}">
-                    <TextBlock
-                      Text="{Binding DisplayName}" />
-                  </RadioButton>
-                </DataTemplate>
-              </ItemsControl.ItemTemplate>
-            </ItemsControl>
-            <Grid x:Name="CustomControlGrid" IsVisible="{Binding CustomDithererSelected}">
-              <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="250" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-              </Grid.ColumnDefinitions>
-              <Grid.RowDefinitions>
-                <RowDefinition Height="250" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-              </Grid.RowDefinitions>
-              <ItemsControl
-                x:Name="CustomCellGrid"
-                Grid.Row="0"
-                Grid.Column="0"
-                ItemsSource="{Binding Cells}">
-                <ItemsControl.ItemsPanel>
-                  <ItemsPanelTemplate>
-                    <UniformGrid
-                      Rows="{Binding CellRows}"
-                      Columns="{Binding CellColumns}" />
-                  </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                  <DataTemplate>
-                    <Grid>
-                      <Grid.ContextMenu>
-                        <ContextMenu>
-                          <MenuItem Header="Make Anchor"
-                                    IsEnabled="{Binding !IsAnchor}"
-                                    Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).ChangeAnchorCommand}"
-                                    CommandParameter="{Binding .}">
-                            <MenuItem.Icon>
-                              <Svg Path="/Assets/anchor.svg" />
-                            </MenuItem.Icon>
-                          </MenuItem>
-                        </ContextMenu>
-                      </Grid.ContextMenu>
-                      <TextBox Text="{Binding Value}" ContextFlyout="{x:Null}" />
-                      <Border Padding="3">
-                        <Svg Height="15" IsVisible="{Binding IsAnchor}" HorizontalAlignment="Right"
-                             VerticalAlignment="Bottom"
-                             Path="/Assets/anchor.svg" />
-                      </Border>
-                    </Grid>
-                  </DataTemplate>
-                </ItemsControl.ItemTemplate>
-              </ItemsControl>
-              <Button
-                Classes="GridSizingButton Horizontal"
-                Grid.Row="1"
-                Grid.Column="0"
-                Content="+"
-                Command="{Binding AddRowToCustomMatrixCommand}" />
-              <Button
-                Classes="GridSizingButton Horizontal"
-                Grid.Row="2"
-                Grid.Column="0"
-                Content="-"
-                Command="{Binding RemoveRowFromCustomMatrixCommand}" />
-              <Button
-                Classes="GridSizingButton Vertical"
-                Grid.Row="0"
-                Grid.Column="1"
-                Content="+"
-                Command="{Binding AddColumnToCustomMatrixCommand}" />
-              <Button
-                Classes="GridSizingButton Vertical"
-                Grid.Row="0"
-                Grid.Column="2"
-                Content="-"
-                Command="{Binding RemoveColumnFromCustomMatrixCommand}" />
-            </Grid>
-          </StackPanel>
-        </ScrollViewer>
-      </DockPanel>
-    </Border>
-  </DockPanel>
-
+  
+  <views:MainView/>
+  
 </Window>

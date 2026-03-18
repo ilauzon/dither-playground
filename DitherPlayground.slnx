@@ -1,3 +1,5 @@
 <Solution>
+  <Project Path="DitherPlayground.Browser/DitherPlayground.Browser.csproj" />
+  <Project Path="DitherPlayground.Desktop/DitherPlayground.Desktop.csproj" />
   <Project Path="DitherPlayground/DitherPlayground.csproj" />
 </Solution>
